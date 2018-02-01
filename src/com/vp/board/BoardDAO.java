@@ -13,8 +13,7 @@ public class BoardDAO {
 		dbconnect = new BoardDBConnect();
 	}
 
-	// TODO : 필요성 체크
-	// 데이터 인코딩
+	/* 데이터 인코딩 */
 	public String encodeData(String data) {
 		try {
 			data = new String(data.getBytes("8859_1"), "euc-kr");
@@ -23,7 +22,7 @@ public class BoardDAO {
 		return data;
 	}
 
-	// 게시물 총 개수
+	/* 게시물 총 개수 */
 	public int countList() {
 		Connection con = dbconnect.getConnection();
 		PreparedStatement pstmt = null; // 컴파일된 SQL문을 DBMS에 전달
@@ -43,7 +42,7 @@ public class BoardDAO {
 		return cnt;
 	}
 
-	// 목록보기
+	/* 목록보기 */
 	public ArrayList<BoardVO> getList() {
 		Connection con = dbconnect.getConnection();
 		PreparedStatement pstmt = null;
@@ -133,7 +132,6 @@ public class BoardDAO {
 			pstmt.setString(2, encodeData(vo.getPassword()));
 			pstmt.setString(3, encodeData(vo.getTitle()));
 			pstmt.setString(4, encodeData(vo.getMemo()));
-			System.out.println(vo.getUserName());
 			pstmt.execute();
 		} catch (Exception e) {
 		} finally {
@@ -159,7 +157,7 @@ public class BoardDAO {
 	}
 
 	// 비밀번호 체크
-	public boolean checkPassword(BoardVO vo, int idx) {
+	public boolean checkPassword(int idx, String pwd) {
 		Connection con = dbconnect.getConnection();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -168,7 +166,7 @@ public class BoardDAO {
 			sql = "SELECT BOARDIDX FROM BOARD_TB WHERE BOARDIDX=? AND PASSWORD=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, idx);
-			pstmt.setString(2, vo.getPassword());
+			pstmt.setString(2, pwd);
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
 				ch = true;

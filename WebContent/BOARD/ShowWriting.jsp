@@ -8,8 +8,7 @@
 	/* boardIdx로 해당 글의 정보 받아오기 */
 	int boardIdx = Integer.parseInt(request.getParameter("boardIdx"));
 	BoardVO vo = dao.getWriteInfo(boardIdx);
-	// [글 수정]
-	// Write.jsp로 이동하되 해당 글의 정보를 가지고 넘어가기
+	// 글 hit counting
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -88,7 +87,7 @@
 	<br>
 	<div style="padding-left:150px">
 		<input type=button value="목록" OnClick="window.location='ShowList.jsp?pg=1'">
-		<!-- <input type=button value="수정" OnClick="window.location='Write.jsp'"> -->
+		<input type=button value="수정" OnClick="window.location='Write.jsp?boardIdx=<%=boardIdx%>'">
 		<input type=button value="삭제" OnClick="window.location='Controller.jsp?boardIdx=<%=boardIdx%>&type=delete'"></div>
 </body>
 </html>
