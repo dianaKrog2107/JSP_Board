@@ -27,7 +27,7 @@
 	<% }else{ %>수정하기<%} %>
 </title>
 <script type="text/javascript">
-	function chkBlank() {
+	function checkBlank() {
 		var form = document.writeform;
 		if (!form.title.value) {
 			alert("제목을 적어주세요");
@@ -49,17 +49,6 @@
 			form.memo.focus();
 			return;
 		}
-	}
-	
-	function chkPassword(){
-		chkBlank();
-<%-- 		var pwd = $('#password').val();
-		<% boolean chk = dao.checkPassword(boardIdx, %> pwd <%);%> --%>
-	}
-	
-	function submitInfo(){
-		var form = document.writeform;
-		chkBlank();
 		form.submit();
 	}
 </script>
@@ -129,8 +118,8 @@
 			<td>&nbsp;</td>
 			<td colspan="2">
 				<input type=button 
-					<% if(boardIdx != 0){ %> value="수정" OnClick="javascript:chkPassword();"
-					<%}else{ %> value="등록" OnClick="javascript:submitInfo();" <%} %>
+					<% if(boardIdx != 0){ %> value="수정"
+					<%}else{ %> value="등록" <%} %> OnClick="javascript:checkBlank();"
 				>
 				<input type=button value="취소"
 					<% if(boardIdx != 0){ %> OnClick="window.location='ShowWriting.jsp?boardIdx=<%=boardIdx%>'"

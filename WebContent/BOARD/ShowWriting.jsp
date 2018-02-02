@@ -87,7 +87,7 @@
 	<br>
 	<div style="padding-left:150px">
 		<input type=button value="목록" OnClick="window.location='ShowList.jsp?pg=1'">
-		<input type=button value="수정" OnClick="window.location='Write.jsp?boardIdx=<%=boardIdx%>'">
-		<input type=button value="삭제" OnClick="window.location='Controller.jsp?boardIdx=<%=boardIdx%>&type=delete'"></div>
+		<input type=button value="수정" OnClick="window.location='CheckPassword.jsp?boardIdx=<%=boardIdx%>&type=modify'">
+		<input type=button value="삭제" OnClick="window.location='CheckPassword.jsp?boardIdx=<%=boardIdx%>&type=delete'"></div>
 </body>
 </html>
