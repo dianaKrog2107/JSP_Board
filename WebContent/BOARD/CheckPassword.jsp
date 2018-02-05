@@ -5,12 +5,12 @@
 <jsp:useBean id="dao" class="com.vp.board.BoardDAO" />
 <%
 	int boardIdx = 0;
-	String type = null;
+	String next = null;
 	if(request.getParameter("boardIdx") != null){
 		boardIdx = Integer.parseInt(request.getParameter("boardIdx"));
 	}
 	if(request.getParameter("type") != null){
-		type = request.getParameter("type");
+		next = request.getParameter("type");
 	}
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -20,20 +20,40 @@
 <title>비밀번호 체크</title>
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
  <script type="text/javascript">
-    function sendPassword() {
-        var pwd = document.getElementById('pwd').value;
-        var url = window.location='Controller.jsp?boardIdx=' + <%=boardIdx%> + '&type=pwd';
-        var type = "<%=type%>";
-        var boardIdx = "<%=boardIdx%>";
-        $.ajax({
-            url: url,
-            type: "POST",
-            data: {password: pwd, next: type, boardIdx : boardIdx},
-            success: function (data) {
-            	 console.log(data);
-            }
-        });
-    }
+ $(function() {
+		$("#sendPassword").click(function(e){
+	        e.preventDefault();
+			var pwd = document.getElementById('pwd').value;
+			var next = "<%=next%>";
+		    var url = 'Controller.jsp?boardIdx=' + <%=boardIdx%> + '&type=pwd';		    
+		    $.ajax({
+				url: url,
+	            type: "POST",
+	            datatype:"HTML",
+	            data: {password: pwd, boardIdx: <%=boardIdx%>},
+				success: function(args) {
+					var num = $.trim(args).charAt(164);
+					console.log("next : " + next);
+					if(num == 0){
+						if(next == "modify"){
+							location.href="Write.jsp?boardIdx=" + <%=boardIdx%>;
+						}else if(next == "delete"){
+						<%
+							/* dao.deleteWrite(boardIdx); */
+						%>
+							alert("글이 삭제되었습니다");
+							location.href="ShowList.jsp";							
+						}
+					}else{
+						alert("비밀번호가 틀렸습니다.");
+					}
+				},
+				error: function(){
+					console.log("Connection Failed");
+				}
+			});
+		});
+	});
 </script>
 </head>
 <body>
@@ -43,8 +63,7 @@
 			<td><input type="password" id="pwd" size="50" maxlength="50"></td>
 		</tr>
 		<tr>
-			<td><input type="button" value="확인" OnClick="sendPassword()">
-		</td>
+			<td><input type="button" value="확인" id="sendPassword"></td>
 		</tr>
 	</table>
 </body>
