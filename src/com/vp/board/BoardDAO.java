@@ -1,6 +1,5 @@
 package com.vp.board;
 
-import java.io.UnsupportedEncodingException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -53,8 +52,6 @@ public class BoardDAO {
 			sql = "SELECT BOARDIDX,USERNAME,TITLE,HIT,CREATEAT FROM BOARD_TB ";
 			
 			if(keyWord != null && !keyWord.equals("") ){
-//				[iso-8859-1,euc-kr] = 테스트
-//						[iso-8859-1,ksc5601] = 테스트
 				String str = new String(keyWord.trim().getBytes("iso-8859-1"), "euc-kr");
                 sql +="WHERE "+keyField.trim()+" LIKE '%"+ str +"%' ORDER BY BOARDIDX DESC";
                 System.out.println(sql);
@@ -156,13 +153,15 @@ public class BoardDAO {
 		Connection con = dbconnect.getConnection();
 		PreparedStatement pstmt = null;
 		try {
+//			sql = "UPDATE BOARD_TB SET TITLE=?,USERNAME=?,PASSWORD=?,MEMO=? WHERE BOARDIDX=?";
 			sql = "UPDATE BOARD_TB SET TITLE=?,USERNAME=?,PASSWORD=?,MEMO=? WHERE BOARDIDX=?";
-			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, encodeData(vo.getUserName()));
-			pstmt.setString(2, encodeData(vo.getPassword()));
-			pstmt.setString(3, encodeData(vo.getTitle()));
-			pstmt.setString(4, encodeData(vo.getMemo()));
+			pstmt = con.prepareStatement(sql);			
+			pstmt.setString(1, encodeData(vo.getTitle()));
+			pstmt.setString(2, encodeData(vo.getUserName()));
+			pstmt.setString(3, encodeData(vo.getPassword()));
+			pstmt.setString(4, encodeData(vo.getMemo()));			
 			pstmt.setInt(5, idx);
+			System.out.println(pstmt);
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 		} finally {

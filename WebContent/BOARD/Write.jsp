@@ -6,10 +6,6 @@
 
 <jsp:useBean id="dao" class="com.vp.board.BoardDAO" />
 <%
-	// [수정할 때]
-	// 이전 페이지에서 정보가 넘어오면 수정하기
-	// 비밀번호가 동일하면 수정됨
-	// modifyWrite() 실행하고 알림창 뜬 후에 ShowWriting.jsp로 이동
 	int boardIdx = 0;
 	BoardVO vo = new BoardVO();
 	if(request.getParameter("boardIdx") != null){
@@ -56,7 +52,7 @@
 <body>
 <form name=writeform method=post
 	<% if(boardIdx != 0){ %>
-		action="Controller.jsp?type=modify"
+		action="Controller.jsp?type=modify&boardIdx=<%=boardIdx%>"
 	<%}else{ %>
 		action="Controller.jsp?type=write&boardIdx=<%=boardIdx%>"
 	<%} %>
