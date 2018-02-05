@@ -15,6 +15,13 @@
 			type = request.getParameter("type");
 		}
 		
+		if(type.equals("delete")){
+			dao.deleteWrite(boardIdx);
+			%>
+			location.href="ShowList.jsp";
+			<%
+		}
+		
 		/* type에 따라 기능 실행 */
 		if(type.equals("write")){	/* 글 작성 */
  			BoardVO vo = new BoardVO();
@@ -27,13 +34,23 @@
 		alert("글이 등록되었습니다");
 		location.href="ShowList.jsp?pg=1";
 	<%
+		}else if(type.equals("modify")){
+			BoardVO vo = new BoardVO();
+ 			vo.setUserName(request.getParameter("name"));
+			vo.setPassword(request.getParameter("password"));
+			vo.setTitle(request.getParameter("title"));
+			vo.setMemo(request.getParameter("memo"));
+			dao.modifyWrite(vo, boardIdx);
+	%>
+		alert("글이 수정되었습니다");
+		location.href="ShowWriting.jsp?boardIdx=<%=boardIdx%>";
+	<%
 		}else if(type.equals("pwd")){	/* 비밀번호 확인*/			
 			String pwd = null;
 			if(request.getParameter("password") != null){
 				pwd = request.getParameter("password");
 			}
 			boolean chk = dao.checkPassword(boardIdx, pwd);
-			System.out.println("boardIdx : " + boardIdx + ", chk : " + chk);
 			if(chk == true){
 				out.print(0);
 			}else{

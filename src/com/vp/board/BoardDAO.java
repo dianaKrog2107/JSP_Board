@@ -144,11 +144,13 @@ public class BoardDAO {
 		Connection con = dbconnect.getConnection();
 		PreparedStatement pstmt = null;
 		try {
-			sql = "UPDATE BOARD_TB SET TITLE=?,MEMO=? WHERE BOARDIDX=?";
+			sql = "UPDATE BOARD_TB SET TITLE=?,USERNAME=?,PASSWORD=?,MEMO=? WHERE BOARDIDX=?";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, encodeData(vo.getTitle()));
-			pstmt.setString(2, encodeData(vo.getMemo()));
-			pstmt.setInt(3, idx);
+			pstmt.setString(1, encodeData(vo.getUserName()));
+			pstmt.setString(2, encodeData(vo.getPassword()));
+			pstmt.setString(3, encodeData(vo.getTitle()));
+			pstmt.setString(4, encodeData(vo.getMemo()));
+			pstmt.setInt(5, idx);
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 		} finally {

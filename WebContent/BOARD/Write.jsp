@@ -54,7 +54,13 @@
 </script>
 </head>
 <body>
-<form name=writeform method=post action="Controller.jsp?type=write">
+<form name=writeform method=post
+	<% if(boardIdx != 0){ %>
+		action="Controller.jsp?type=modify"
+	<%}else{ %>
+		action="Controller.jsp?type=write&boardIdx=<%=boardIdx%>"
+	<%} %>
+>
 	<h4 style="padding-left:180px">
 		<!-- TODO : 반복되는거 수정 가능한지 아니면 ()? : 이거로 해결 가능한지 -->
 		<% if(boardIdx == 0){ %>글쓰기

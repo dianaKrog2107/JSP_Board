@@ -33,18 +33,15 @@
 	            data: {password: pwd, boardIdx: <%=boardIdx%>},
 				success: function(args) {
 					var num = $.trim(args).charAt(164);
-					console.log("next : " + next);
 					if(num == 0){
-						if(next == "modify"){
+						if(next === "modify"){
 							location.href="Write.jsp?boardIdx=" + <%=boardIdx%>;
-						}else if(next == "delete"){
-						<%
-							dao.deleteWrite(boardIdx);
-						%>
-							alert("글이 삭제되었습니다");
-							location.href="ShowList.jsp";							
 						}
-					}else{
+						if(next === "delete"){
+							alert("게시물을 삭제합니다");
+							location.href='Controller.jsp?boardIdx=' + <%=boardIdx%> + '&type=delete';
+						}
+					}else if(num ==1){
 						alert("비밀번호가 틀렸습니다.");
 					}
 				},
