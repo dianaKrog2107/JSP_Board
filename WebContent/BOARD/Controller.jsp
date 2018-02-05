@@ -22,6 +22,18 @@
 			<%
 		}
 		
+		if(type.equals("title")){
+			
+		}
+		
+		if(type.equals("name")){
+			
+		}
+		
+		if(type.equals("both")){
+			
+		}
+		
 		/* type에 따라 기능 실행 */
 		if(type.equals("write")){	/* 글 작성 */
  			BoardVO vo = new BoardVO();

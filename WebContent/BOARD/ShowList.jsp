@@ -38,11 +38,20 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>게시판</title>
-<%-- <script>
-	function updateHit(){
-		<%dao.updateHit(boardIdx);%>
+<script>
+	function searchKeyword(){
+		var form = document.writeform;
+		if (!form.inputKeyword.value) {
+			alert("제목을 적어주세요");
+			form.inputKeyword.focus();
+			return;
+		}
+		var selected = document.getElementsByName("keyField");
+		console.log(selected[0].value);
+		form.action="CheckPassword.jsp?type=" + selected[0].value;
+		form.submit();
 	}
-</script> --%>
+</script>
 </head>
 <body>
 	<br>
@@ -146,5 +155,16 @@
 		<!-- 검색창 -->
 	</table>
 	<br>
+	<form name=writeform method=post>
+	<div align="right">
+				<select name="keyField">
+  					<option value="title">제목</option>
+  					<option value="name">작성자</option>
+  					<option value="both">제목+내용</option>
+				</select>
+				<input type="text" name="inputKeyword"/>
+				<input type="button" value="검색" onClick="javascript:searchKeyword()"/>
+	</div>
+	</form>
 </body>
 </html>
