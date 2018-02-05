@@ -5,7 +5,13 @@
 <!-- class 작업 -->
 <%
 	/* 게시판 목록과 전체 개수 파악 */ 
-	ArrayList<BoardVO> list = dao.getList();
+	String keyField = null;
+	String keyWord = null;
+	if(request.getParameter("keyWord") != null){
+		keyField = request.getParameter("keyField");
+	    keyWord = request.getParameter("keyWord");
+	}
+	ArrayList<BoardVO> list = dao.getList(keyField, keyWord);
 	int listCnt = dao.countList();
 	int size = list.size();
 	int listSize = size;
@@ -41,14 +47,14 @@
 <script>
 	function searchKeyword(){
 		var form = document.writeform;
-		if (!form.inputKeyword.value) {
-			alert("제목을 적어주세요");
-			form.inputKeyword.focus();
+		if (!form.keyWord.value) {
+			alert("검색할 내용을 적어주세요");
+			form.keyWord.focus();
 			return;
 		}
 		var selected = document.getElementsByName("keyField");
 		console.log(selected[0].value);
-		form.action="CheckPassword.jsp?type=" + selected[0].value;
+		/* form.action="CheckPassword.jsp?type=" + selected[0].value; */
 		form.submit();
 	}
 </script>
@@ -158,11 +164,11 @@
 	<form name=writeform method=post>
 	<div align="right">
 				<select name="keyField">
-  					<option value="title">제목</option>
-  					<option value="name">작성자</option>
-  					<option value="both">제목+내용</option>
+  					<option value="TITLE">제목</option>
+  					<option value="MEMO">내용</option>
+  					<option value="USERNAME">작성자</option>  					
 				</select>
-				<input type="text" name="inputKeyword"/>
+				<input type="text" name="keyWord"/>
 				<input type="button" value="검색" onClick="javascript:searchKeyword()"/>
 	</div>
 	</form>

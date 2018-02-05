@@ -1,5 +1,6 @@
 package com.vp.board;
 
+import java.io.UnsupportedEncodingException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -43,13 +44,24 @@ public class BoardDAO {
 	}
 
 	/* 목록보기 */
-	public ArrayList<BoardVO> getList() {
+	public ArrayList<BoardVO> getList(String keyField, String keyWord) {
 		Connection con = dbconnect.getConnection();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		ArrayList<BoardVO> alist = new ArrayList<BoardVO>();
 		try {
-			sql = "SELECT BOARDIDX,USERNAME,TITLE,HIT,CREATEAT FROM BOARD_TB ORDER BY BOARDIDX DESC";
+			sql = "SELECT BOARDIDX,USERNAME,TITLE,HIT,CREATEAT FROM BOARD_TB ";
+			
+			if(keyWord != null && !keyWord.equals("") ){
+//				[iso-8859-1,euc-kr] = 테스트
+//						[iso-8859-1,ksc5601] = 테스트
+				String str = new String(keyWord.trim().getBytes("iso-8859-1"), "euc-kr");
+                sql +="WHERE "+keyField.trim()+" LIKE '%"+ str +"%' ORDER BY BOARDIDX DESC";
+                System.out.println(sql);
+            }else{
+                sql +="ORDER BY BOARDIDX DESC";
+            }
+			
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
