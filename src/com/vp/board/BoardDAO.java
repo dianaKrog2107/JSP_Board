@@ -84,7 +84,7 @@ public class BoardDAO {
 		Connection con = dbconnect.getConnection();
 		PreparedStatement pstmt = null;
 		try {
-			sql = "UPDATE BOARD_TB SET HIT=HIT+1 where NUM=?";
+			sql = "UPDATE BOARD_TB SET HIT=HIT+1 where BOARDIDX=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, idx);
 			pstmt.executeUpdate();

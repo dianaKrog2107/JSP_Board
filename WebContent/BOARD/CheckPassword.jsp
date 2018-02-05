@@ -39,7 +39,7 @@
 							location.href="Write.jsp?boardIdx=" + <%=boardIdx%>;
 						}else if(next == "delete"){
 						<%
-							/* dao.deleteWrite(boardIdx); */
+							dao.deleteWrite(boardIdx);
 						%>
 							alert("글이 삭제되었습니다");
 							location.href="ShowList.jsp";							

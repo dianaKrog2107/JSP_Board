@@ -38,6 +38,11 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>게시판</title>
+<%-- <script>
+	function updateHit(){
+		<%dao.updateHit(boardIdx);%>
+	}
+</script> --%>
 </head>
 <body>
 	<br>
@@ -80,7 +85,9 @@
 			<td align="center">&nbsp;</td>
 			<td align="center"><%=boardIdx%></td>
 			<td align="left">
-				<a href="ShowWriting.jsp?boardIdx=<%=boardIdx%>&pg=<%=pg%>"><%=vo.getTitle()%></a>
+				<a href="ShowWriting.jsp?boardIdx=<%=boardIdx%>&pg=<%=pg%>">
+					<%=vo.getTitle()%>
+				</a>
 			</td>
 			<td align="center"><%=vo.getUserName()%></td>
 			<td align="center"><%=vo.getCreateAt()%></td>
