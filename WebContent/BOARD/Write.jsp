@@ -8,7 +8,7 @@
 	if (request.getParameter("idx") != null) {
 		idx = Integer.parseInt(request.getParameter("idx"));
 	}
-	if (idx != 0) { // 수정하기인 경우 해당 idx의 내용 받아오기
+	if (idx != 0) { // 수정하기인 경우 해당 게시글(idx)의 내용 받아오기
 		vo = dao.loadSelectedPost(idx);
 	}
 %>
@@ -50,9 +50,9 @@
 <body>
 	<form name=writeform method=post
 		<% if (idx != 0) { %>
-			action="controller.jsp?command=modify&idx=<%=idx%>"
-		<%} else {%>
-			action="controller.jsp?command=write&idx=<%=idx%>"
+			action="controller.jsp?command=modify&idx=<%= idx %>"
+		<% } else { %>
+			action="controller.jsp?command=write&idx=<%= idx %>"
 		<% } %>>
 		<h4 style="padding-left: 180px">
 			<% if (idx == 0) { %> 글쓰기
@@ -65,7 +65,7 @@
 				<td align="center">제목</td>
 				<td>
 					<input name="title" size="50" maxlength="100"
-						<%if (idx != 0) { %>
+						<% if (idx != 0) { %>
 							value="<%= vo.getTitle() %>"
 						<% } %>>
 				</td>
@@ -105,7 +105,7 @@
 				<td>
 					<textarea name="memo" cols="50" rows="13">
 						<% if (idx != 0) { %>
-							<%=vo.getMemo()%>
+							<%= vo.getMemo() %>
 						<% } %>
 					</textarea>
 				</td>
@@ -126,10 +126,10 @@
 						<% } else { %>
 								value="등록"
 						<% } %>
-						OnClick="javascript:checkBlank();">
+						OnClick="checkBlank();">
 					<input type=button value="취소"
 						<% if (idx != 0) { %>
-							OnClick="window.location='selectedPost.jsp?idx=<%=idx%>'"
+							OnClick="window.location='selectedPost.jsp?idx=<%= idx %>'"
 						<% } else { %>
 							OnClick="window.location='boardList.jsp?pg=1'"
 					<% } %>>

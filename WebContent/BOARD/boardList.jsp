@@ -90,6 +90,7 @@
 			</tr>
 		<%
 			} else { // DB에 게시글 데이터가 있는 경우
+				/* String time = null; */
 				for (int i = ROWSIZE * (pg - 1); i < end; i++) {
 					BoardVO vo = arrList.get(i); // 순서대로 VO 정보 받아오기
 		%>
@@ -98,13 +99,13 @@
 			<td align="center">&nbsp;</td>
 			<td align="center"><%=vo.getBoardIdx()%></td>
 			<td align="left">
-				<a href="selectedPost.jsp?idx=<%=vo.getBoardIdx()%>&pg=<%=pg%>">
+				<a href="selectedPost.jsp?idx=<%= vo.getBoardIdx() %>&pg=<%= pg %>">
 					<%=vo.getTitle()%>
 				</a>
 			</td>
-			<td align="center"><%=vo.getUserName()%></td>
-			<td align="center"><%=vo.getCreateAt()%></td>
-			<td align="center"><%=vo.getHit()%></td>
+			<td align="center"><%= vo.getUserName() %></td>
+			<td align="center"><%= vo.getCreateAt().substring(0,10) %></td>
+			<td align="center"><%= vo.getHit() %></td>
 			<td align="center">&nbsp;</td>
 		<tr height="1" bgcolor="#D2D2D2">
 			<td colspan="6"></td>
