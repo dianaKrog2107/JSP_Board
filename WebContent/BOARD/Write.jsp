@@ -125,7 +125,7 @@
 				>
 				<input type=button value="Ãë¼Ò"
 					<% if(boardIdx != 0){ %> OnClick="window.location='ShowWriting.jsp?boardIdx=<%=boardIdx%>'"
-					<%}else{ %> OnClick="window.location='ShowList.jsp?pg=1'" <%} %>>
+					<%}else{ %> OnClick="window.location='boardList.jsp?pg=1'" <%} %>>
 			<td>&nbsp;</td>
 		</tr>
 	</table>

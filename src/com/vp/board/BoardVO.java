@@ -1,6 +1,6 @@
 package com.vp.board;
 
-public class BoardVO {
+public class BoardVO {	// 
 	private int boardIdx;
 	private String userName;
 	private String title;

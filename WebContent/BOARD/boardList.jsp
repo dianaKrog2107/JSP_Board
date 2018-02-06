@@ -4,23 +4,22 @@
 <jsp:useBean id="dao" class="com.vp.board.BoardDAO" />
 <!-- class 작업 -->
 <%
-	/* 게시판 목록과 전체 개수 파악 */ 
-	String keyField = null;
-	String keyWord = null;
-	if(request.getParameter("keyWord") != null){
+	/* 게시판 목록 불러오기 */ 
+	String keyField = null;	// <select>, 검색 기준
+	String keyWord = null; // 검색 키워드
+	if(request.getParameter("keyWord") != null){ // 데이터 null 여부 확인
 		keyField = request.getParameter("keyField");
 	    keyWord = request.getParameter("keyWord");
-	}
-	ArrayList<BoardVO> list = dao.getList(keyField, keyWord);
-	int listCnt = dao.countPost();
-	int size = list.size();
+	}	
+	ArrayList<BoardVO> arrList = dao.getList(keyField, keyWord);
+	int postCnt = dao.countPost();
+	int size = arrList.size();
 	int listSize = size;
 
-	/* TODO : 페이징 작업 > 수정하기 */
+	/* TODO : 페이징 수정하기 */
 	final int ROWSIZE = 5;
 	final int BLOCK = 5;
-	int pg = 1;
-	
+	int pg = 1;	
 	if (request.getParameter("pg") != null) {	// 클릭한 페이지에 대한 정보, null이 아닌지 체크하고 시작
 		pg = Integer.parseInt(request.getParameter("pg"));
 	}
@@ -28,7 +27,7 @@
 	int allPage = 0;
 	int startPage = ((pg - 1) / BLOCK * BLOCK) + 1;
 	int endPage = ((pg - 1) / BLOCK * BLOCK) + BLOCK;
-	allPage = (int) Math.ceil(listCnt / (double) ROWSIZE);	// Math.ceil 반올림 함수
+	allPage = (int) Math.ceil(postCnt / (double) ROWSIZE);	// Math.ceil() 반올림
 
 	if (endPage > allPage) {
 		endPage = allPage;
@@ -38,6 +37,7 @@
 		end = size;
 	}
 %>
+
 <!-- html 작업 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -46,15 +46,14 @@
 <title>게시판</title>
 <script>
 	function searchKeyword(){
-		var form = document.writeform;
+		var form = document.searchform;
 		if (!form.keyWord.value) {
 			alert("검색할 내용을 적어주세요");
 			form.keyWord.focus();
 			return;
 		}
-		var selected = document.getElementsByName("keyField");
-		console.log(selected[0].value);
-		/* form.action="CheckPassword.jsp?type=" + selected[0].value; */
+		var selectedItem = document.getElementsByName("keyField");
+		console.log(selectedItem[0].value);
 		form.submit();
 	}
 </script>
@@ -64,43 +63,42 @@
 	<h3 align="center">게시판</h3>
 	<br>
 		<!-- 글쓰기 버튼 -->
-		<div align="right" style="padding-right:100px;"><input type=button value="글쓰기" OnClick="window.location='Write.jsp'"></div>
+		<div align="right" style="padding-right:100px;">
+			<input type=button value="글쓰기" OnClick="window.location='Write.jsp'">
+		</div>
 	<br>
-	<!-- 게시글 보여주는 게시판 설정 -->
+	<!-- 게시판 설정 -->
 	<table width="100%" cellpadding="0" cellspacing="0" border="0">
 		<tr height="6">
 			<td width="5"></td>
 		</tr>
-		<!-- TODO :테이블 설정 잘하기 -->
 		<tr align="center">
-			<td width="5" height="30" /></td>
+			<td width="5"/></td>
 			<td width="70">번호</td>
 			<td width="300">제목</td>
 			<td width="73">작성자</td>
 			<td width="164">작성일</td>
 			<td width="58">조회수</td>
-			<td width="7"><img width="5" height="30" /></td>
+			<td width="7"/></td>
 		</tr>
-		<!-- DB에 게시글 데이터가 없는 경우 -->
 		<%
-			if (listCnt == 0) {
+			// 카운팅된 게시글 데이터 수가 0인 경우
+			if (postCnt == 0) {
 		%>
-		<tr align="center" bgcolor="#FFFFFF" height="60">
-			<td colspan="6">게시판에 등록된 글이 없습니다</td>
-		</tr>
-		<!-- DB에 게시글 데이터가 있는 경우 -->
+				<tr align="center" bgcolor="#FFFFFF" height="60">
+				<td colspan="6">게시판에 등록된 글이 없습니다</td>
+			</tr>
 		<%
-			} else {
+			} else { // DB에 게시글 데이터가 있는 경우
 				for (int i = ROWSIZE * (pg - 1); i < end; i++) {
-					BoardVO vo = list.get(i); // 순서대로 VO 정보 받아오기
-					int boardIdx = vo.getBoardIdx(); // 글번호
+					BoardVO vo = arrList.get(i); // 순서대로 VO 정보 받아오기
 		%>
 		<!-- 게시글 정보 출력하기 -->
 		<tr height="30" align="center">
 			<td align="center">&nbsp;</td>
-			<td align="center"><%=boardIdx%></td>
+			<td align="center"><%=vo.getBoardIdx()%></td>
 			<td align="left">
-				<a href="ShowWriting.jsp?boardIdx=<%=boardIdx%>&pg=<%=pg%>">
+				<a href="ShowWriting.jsp?boardIdx=<%=vo.getBoardIdx()%>&pg=<%=pg%>">
 					<%=vo.getTitle()%>
 				</a>
 			</td>
@@ -112,10 +110,10 @@
 			<td colspan="6"></td>
 		</tr>
 		<%
-				}	// for문
+				}	// for문 : 게시글 데이터 뿌리기
 			}	// if문
 		%>
-		<tr height="1" bgcolor="#82B5DF"> <!-- 테이블 밑선 -->
+		<tr height="1" bgcolor="#82B5DF">
 			<td colspan="6" width="752"></td>
 		</tr>
 	</table>
@@ -130,8 +128,8 @@
 			<%
 				if (pg > BLOCK) {
 			%>
-			<a href="ShowList.jsp?pg=1">◀◀</a>
-			<a href="ShowList.jsp?pg=<%=startPage - 1%>">◀</a>
+			<a href="boardList.jsp?pg=1">◀◀</a>
+			<a href="boardList.jsp?pg=<%=startPage - 1%>">◀</a>
 			<%
 				}
 			%>
@@ -143,7 +141,7 @@
 			<%
  					} else {
  			%>
- 			<a href="ShowList.jsp?pg=<%=i%>"><%=i%></a>
+ 			<a href="boardList.jsp?pg=<%=i%>"><%=i%></a>
  			<%
 				 	}
  				}
@@ -151,8 +149,8 @@
 			<%
  				if (endPage < allPage) {
  			%>
- 			<a href="ShowList.jsp?pg=<%=endPage + 1%>">▶</a>
- 			<a href="ShowList.jsp?pg=<%=allPage%>">▶▶</a>
+ 			<a href="boardList.jsp?pg=<%=endPage + 1%>">▶</a>
+ 			<a href="boardList.jsp?pg=<%=allPage%>">▶▶</a>
  			<%
 			 	}
  			%>
@@ -161,7 +159,8 @@
 		<!-- 검색창 -->
 	</table>
 	<br>
-	<form name=writeform method=post>
+	<form name=searchform method=post>
+	<!-- 검색창 -->
 	<div align="right">
 				<select name="keyField">
   					<option value="TITLE">제목</option>

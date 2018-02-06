@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
 	pageEncoding="EUC-KR"%>
 <%@ page import="com.vp.board.*"%>
-<%@ page import="java.util.*"%>
-
 <jsp:useBean id="dao" class="com.vp.board.BoardDAO" />
 <script type="text/javascript">
 	<%
@@ -18,7 +16,7 @@
 		if(type.equals("delete")){
 			dao.deletePost(boardIdx);
 			%>
-			location.href="ShowList.jsp";
+			location.href="boardList.jsp";
 			<%
 		}
 		
@@ -32,7 +30,7 @@
 			dao.writePost(vo);
 	%>
 		alert("글이 등록되었습니다");
-		location.href="ShowList.jsp?pg=1";
+		location.href="boardList.jsp?pg=1";
 	<%
 		}else if(type.equals("modify")){
 			BoardVO vo = new BoardVO();

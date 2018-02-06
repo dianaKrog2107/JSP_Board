@@ -5,7 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-public class BoardDBClose {
+public class BoardDBClose { // DB Close
 	public static void close(Connection con, PreparedStatement pstmt, ResultSet rs) {
 		try {
 			try {

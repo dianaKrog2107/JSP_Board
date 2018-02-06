@@ -7,7 +7,7 @@ public class BoardDBConnect {
 	public BoardDBConnect() {
 	}
 
-	public Connection getConnection() {
+	public Connection getConnection() {	// DB ¿¬°á
 		String url = "jdbc:oracle:thin:@127.0.0.1:1521:orcl";
 		String user = "dhkang";
 		String pw = "ekskdn1";
