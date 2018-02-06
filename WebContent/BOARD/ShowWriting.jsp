@@ -8,7 +8,7 @@
 	/* boardIdx로 해당 글의 정보 받아오기 */
 	int boardIdx = Integer.parseInt(request.getParameter("boardIdx"));
 	dao.updateHit(boardIdx);	// 글 hit counting
-	BoardVO vo = dao.getWriteInfo(boardIdx);	
+	BoardVO vo = dao.loadSelectedPost(boardIdx);	
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>

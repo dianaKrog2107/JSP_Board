@@ -6,8 +6,8 @@ public class BoardVO {
 	private String title;
 	private String memo;
 	private int hit;
-	private String createAt;
-	private String updateAt;
+	private String createAt;	// TODO : Date로 데이터타입 변경
+	private String updateAt;	// TODO : Date로 데이터타입 변경
 	private String password;
 
 	public BoardVO() {

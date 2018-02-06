@@ -16,7 +16,7 @@
 		}
 		
 		if(type.equals("delete")){
-			dao.deleteWrite(boardIdx);
+			dao.deletePost(boardIdx);
 			%>
 			location.href="ShowList.jsp";
 			<%
@@ -29,7 +29,7 @@
 			vo.setPassword(request.getParameter("password"));
 			vo.setTitle(request.getParameter("title"));
 			vo.setMemo(request.getParameter("memo"));
-			dao.insertWrite(vo);
+			dao.writePost(vo);
 	%>
 		alert("글이 등록되었습니다");
 		location.href="ShowList.jsp?pg=1";
@@ -40,7 +40,7 @@
 			vo.setPassword(request.getParameter("password"));
 			vo.setTitle(request.getParameter("title"));
 			vo.setMemo(request.getParameter("memo"));
-			dao.modifyWrite(vo, boardIdx);
+			dao.modifyPost(vo, boardIdx);
 	%>
 		alert("글이 수정되었습니다");
 		location.href="ShowWriting.jsp?boardIdx=<%=boardIdx%>";

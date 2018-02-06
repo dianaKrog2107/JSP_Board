@@ -12,7 +12,7 @@
 	    keyWord = request.getParameter("keyWord");
 	}
 	ArrayList<BoardVO> list = dao.getList(keyField, keyWord);
-	int listCnt = dao.countList();
+	int listCnt = dao.countPost();
 	int size = list.size();
 	int listSize = size;
 
@@ -73,13 +73,13 @@
 		</tr>
 		<!-- TODO :테이블 설정 잘하기 -->
 		<tr align="center">
-			<td width="5"><img src="img/table_left.gif" width="5" height="30" /></td>
+			<td width="5" height="30" /></td>
 			<td width="70">번호</td>
 			<td width="300">제목</td>
 			<td width="73">작성자</td>
 			<td width="164">작성일</td>
 			<td width="58">조회수</td>
-			<td width="7"><img src="img/table_right.gif" width="5" height="30" /></td>
+			<td width="7"><img width="5" height="30" /></td>
 		</tr>
 		<!-- DB에 게시글 데이터가 없는 경우 -->
 		<%
