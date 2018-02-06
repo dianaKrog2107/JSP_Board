@@ -19,38 +19,6 @@
 <title>비밀번호 체크</title>
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
  <script type="text/javascript">
-<%--  $(function() {
-		$("#submitPassword").click(function(e){
-	        e.preventDefault();
-			var pwd = document.getElementById('pwd').value;
-			var command = "<%=command%>";
-		    var url = 'controller.jsp?idx=' + <%=idx%> + '&command=pwd';		    
-		    $.ajax({
-				url: url,
-	            type: "POST",
-	            datatype:"HTML",
-	            data: {password: pwd, idx: <%=idx%>},
-				success: function(args) {
-					var num = $.trim(args).charAt(164);
-					alert($.trim(args));
-					if(num == 0){
-						if(command === "modify"){
-							location.href="write.jsp?idx=" + <%=idx%>;
-						}
-						if(command === "delete"){
-							alert("게시물을 삭제합니다");
-							location.href='controller.jsp?idx=' + <%=idx%> + '&command=delete';
-						}
-					}else if(num ==1){
-						alert("비밀번호가 틀렸습니다.");
-					}
-				},
-				error: function(){
-					console.log("Connection Failed");
-				}
-			});
-		});
-	}); --%>
 	function submitPassword() {
 		var form = document.writeform;
 		if (!form.pwd.value) {
@@ -63,7 +31,6 @@
 </script>
 </head>
 <body>
-<!-- input type="hidden"으로 수정하기 -->
 	<h4 style="padding-left:180px">비밀번호</h4>
 	<form name=writeform method=post action="controller.jsp?idx=<%=idx%>&command=check">
 		<input type="hidden" name="idx" value=<%=idx%>>

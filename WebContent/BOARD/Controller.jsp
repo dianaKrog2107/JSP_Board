@@ -15,13 +15,7 @@
 		}
 		
 		/* command 값에 따라 기능 실행 */
-		if(command.equals("delete")){ // 게시글 삭제
-			dao.deletePost(idx);
-		%>
-			alert("게시물을 삭제합니다");
-			location.href="boardList.jsp";			
-		<%
-		}else if(command.equals("write")){ // 게시글 작성
+		if(command.equals("write")){ // 게시글 작성
  			BoardVO vo = new BoardVO();
  			vo.setUserName(request.getParameter("name"));
 			vo.setPassword(request.getParameter("password"));
