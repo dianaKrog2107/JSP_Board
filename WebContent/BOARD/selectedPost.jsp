@@ -3,13 +3,13 @@
 <%@ page import="com.vp.board.*"%>
 <jsp:useBean id="dao" class="com.vp.board.BoardDAO" />
 <%
-	/* boardIdx의 게시글 불러오기 */
-	int boardIdx = 0;
-	if (request.getParameter("boardIdx") != null) {
-		boardIdx = Integer.parseInt(request.getParameter("boardIdx"));
+	/* idx의 게시글 불러오기 */
+	int idx = 0;
+	if (request.getParameter("idx") != null) {
+		idx = Integer.parseInt(request.getParameter("idx"));
 	}
-	dao.updateHit(boardIdx); // 해당 게시글 조회수 갱신
-	BoardVO vo = dao.loadSelectedPost(boardIdx); // 해당 게시글 값 불러오기	
+	dao.updateHit(idx); // 해당 게시글 조회수 갱신
+	BoardVO vo = dao.loadSelectedPost(idx); // 해당 게시글 값 불러오기	
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <!-- html 작업 -->
@@ -29,7 +29,7 @@
 					<tr>
 						<td width="0">&nbsp;</td>
 						<td align="center" width="76">글번호</td>
-						<td width="319"><%=boardIdx%></td>
+						<td width="319"><%=idx%></td>
 						<td width="0">&nbsp;</td>
 						
 					</tr>
@@ -89,7 +89,7 @@
 	<br>
 	<div style="padding-left:150px">
 		<input type=button value="목록" OnClick="window.location='boardList.jsp?pg=1'">
-		<input type=button value="수정" OnClick="window.location='checkPassword.jsp?boardIdx=<%=boardIdx%>&type=modify'">
-		<input type=button value="삭제" OnClick="window.location='checkPassword.jsp?boardIdx=<%=boardIdx%>&type=delete'"></div>
+		<input type=button value="수정" OnClick="window.location='checkPassword.jsp?idx=<%=idx%>&command=modify'">
+		<input type=button value="삭제" OnClick="window.location='checkPassword.jsp?idx=<%=idx%>&command=delete'"></div>
 </body>
 </html>

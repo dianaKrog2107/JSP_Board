@@ -3,20 +3,20 @@
 <%@ page import="com.vp.board.*" %>
 <jsp:useBean id="dao" class="com.vp.board.BoardDAO" />
 <%
-	int boardIdx = 0; // = 0이면 글쓰기, != 0이면 수정하기
+	int idx = 0; // = 0이면 글쓰기, != 0이면 수정하기
 	BoardVO vo = new BoardVO();
-	if (request.getParameter("boardIdx") != null) {
-		boardIdx = Integer.parseInt(request.getParameter("boardIdx"));
+	if (request.getParameter("idx") != null) {
+		idx = Integer.parseInt(request.getParameter("idx"));
 	}
-	if (boardIdx != 0) { // 수정하기인 경우 해당 boardIdx의 내용 받아오기
-		vo = dao.loadSelectedPost(boardIdx);
+	if (idx != 0) { // 수정하기인 경우 해당 idx의 내용 받아오기
+		vo = dao.loadSelectedPost(idx);
 	}
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <title>
-	<% if (boardIdx == 0) { %> 글쓰기
+	<% if (idx == 0) { %> 글쓰기
 	<% } else { %> 수정하기
 	<% } %>
 </title>
@@ -49,13 +49,13 @@
 </head>
 <body>
 	<form name=writeform method=post
-		<% if (boardIdx != 0) { %>
-			action="Controller.jsp?type=modify&boardIdx=<%=boardIdx%>"
+		<% if (idx != 0) { %>
+			action="controller.jsp?command=modify&idx=<%=idx%>"
 		<%} else {%>
-			action="Controller.jsp?type=write&boardIdx=<%=boardIdx%>"
+			action="controller.jsp?command=write&idx=<%=idx%>"
 		<% } %>>
 		<h4 style="padding-left: 180px">
-			<% if (boardIdx == 0) { %> 글쓰기
+			<% if (idx == 0) { %> 글쓰기
 			<% } else { %> 수정하기
 			<% } %>
 		</h4>
@@ -65,7 +65,7 @@
 				<td align="center">제목</td>
 				<td>
 					<input name="title" size="50" maxlength="100"
-						<%if (boardIdx != 0) { %>
+						<%if (idx != 0) { %>
 							value="<%= vo.getTitle() %>"
 						<% } %>>
 				</td>
@@ -79,7 +79,7 @@
 				<td align="center">이름</td>
 				<td>
 					<input name="name" size="50" maxlength="50"
-						<% if (boardIdx != 0) { %>
+						<% if (idx != 0) { %>
 							value="<%= vo.getUserName() %>"
 						<% } %>>
 				</td>
@@ -104,7 +104,7 @@
 				<td align="center">내용</td>
 				<td>
 					<textarea name="memo" cols="50" rows="13">
-						<% if (boardIdx != 0) { %>
+						<% if (idx != 0) { %>
 							<%=vo.getMemo()%>
 						<% } %>
 					</textarea>
@@ -121,15 +121,15 @@
 				<td>&nbsp;</td>
 				<td colspan="2">
 					<input type=button
-						<% if (boardIdx != 0) { %>
+						<% if (idx != 0) { %>
 								value="수정"
 						<% } else { %>
 								value="등록"
 						<% } %>
 						OnClick="javascript:checkBlank();">
 					<input type=button value="취소"
-						<% if (boardIdx != 0) { %>
-							OnClick="window.location='selectedPost.jsp?boardIdx=<%=boardIdx%>'"
+						<% if (idx != 0) { %>
+							OnClick="window.location='selectedPost.jsp?idx=<%=idx%>'"
 						<% } else { %>
 							OnClick="window.location='boardList.jsp?pg=1'"
 					<% } %>>

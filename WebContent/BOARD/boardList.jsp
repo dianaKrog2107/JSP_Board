@@ -98,7 +98,7 @@
 			<td align="center">&nbsp;</td>
 			<td align="center"><%=vo.getBoardIdx()%></td>
 			<td align="left">
-				<a href="selectedPost.jsp?boardIdx=<%=vo.getBoardIdx()%>&pg=<%=pg%>">
+				<a href="selectedPost.jsp?idx=<%=vo.getBoardIdx()%>&pg=<%=pg%>">
 					<%=vo.getTitle()%>
 				</a>
 			</td>

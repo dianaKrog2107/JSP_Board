@@ -3,13 +3,13 @@
 <%@ page import="com.vp.board.*"%>
 <jsp:useBean id="dao" class="com.vp.board.BoardDAO" />
 <%
-	int boardIdx = 0;
+	int idx = 0;
 	String next = null;
-	if(request.getParameter("boardIdx") != null){
-		boardIdx = Integer.parseInt(request.getParameter("boardIdx"));
+	if(request.getParameter("idx") != null){
+		idx = Integer.parseInt(request.getParameter("idx"));
 	}
-	if(request.getParameter("type") != null){
-		next = request.getParameter("type");
+	if(request.getParameter("command") != null){
+		next = request.getParameter("command");
 	}
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -24,21 +24,21 @@
 	        e.preventDefault();
 			var pwd = document.getElementById('pwd').value;
 			var next = "<%=next%>";
-		    var url = 'Controller.jsp?boardIdx=' + <%=boardIdx%> + '&type=pwd';		    
+		    var url = 'controller.jsp?idx=' + <%=idx%> + '&command=pwd';		    
 		    $.ajax({
 				url: url,
 	            type: "POST",
 	            datatype:"HTML",
-	            data: {password: pwd, boardIdx: <%=boardIdx%>},
+	            data: {password: pwd, idx: <%=idx%>},
 				success: function(args) {
 					var num = $.trim(args).charAt(164);
 					if(num == 0){
 						if(next === "modify"){
-							location.href="write.jsp?boardIdx=" + <%=boardIdx%>;
+							location.href="write.jsp?idx=" + <%=idx%>;
 						}
 						if(next === "delete"){
 							alert("게시물을 삭제합니다");
-							location.href='Controller.jsp?boardIdx=' + <%=boardIdx%> + '&type=delete';
+							location.href='controller.jsp?idx=' + <%=idx%> + '&command=delete';
 						}
 					}else if(num ==1){
 						alert("비밀번호가 틀렸습니다.");
