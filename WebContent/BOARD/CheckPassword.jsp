@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
 <%@ page import="com.vp.board.*"%>
-<%@ page import="java.util.*"%>
 <jsp:useBean id="dao" class="com.vp.board.BoardDAO" />
 <%
 	int boardIdx = 0;
@@ -54,6 +53,7 @@
 </script>
 </head>
 <body>
+<!-- input type="hidden"으로 수정하기 -->
 	<h4 style="padding-left:180px">비밀번호</h4>
 	<table>
 		<tr>

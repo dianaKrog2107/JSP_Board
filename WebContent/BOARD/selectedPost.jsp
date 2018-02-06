@@ -1,16 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
 	pageEncoding="EUC-KR"%>
 <%@ page import="com.vp.board.*"%>
-<%@ page import="java.util.*"%>
-
 <jsp:useBean id="dao" class="com.vp.board.BoardDAO" />
 <%
-	/* boardIdx로 해당 글의 정보 받아오기 */
+	/* boardIdx의 게시글 불러오기 */
 	int boardIdx = Integer.parseInt(request.getParameter("boardIdx"));
-	dao.updateHit(boardIdx);	// 글 hit counting
-	BoardVO vo = dao.loadSelectedPost(boardIdx);	
+	dao.updateHit(boardIdx); // 해당 게시글 조회수 갱신
+	BoardVO vo = dao.loadSelectedPost(boardIdx); // 해당 게시글 값 불러오기	
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- html 작업 -->
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
@@ -87,7 +86,7 @@
 	<br>
 	<div style="padding-left:150px">
 		<input type=button value="목록" OnClick="window.location='boardList.jsp?pg=1'">
-		<input type=button value="수정" OnClick="window.location='CheckPassword.jsp?boardIdx=<%=boardIdx%>&type=modify'">
-		<input type=button value="삭제" OnClick="window.location='CheckPassword.jsp?boardIdx=<%=boardIdx%>&type=delete'"></div>
+		<input type=button value="수정" OnClick="window.location='checkPassword.jsp?boardIdx=<%=boardIdx%>&type=modify'">
+		<input type=button value="삭제" OnClick="window.location='checkPassword.jsp?boardIdx=<%=boardIdx%>&type=delete'"></div>
 </body>
 </html>

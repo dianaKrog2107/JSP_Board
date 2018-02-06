@@ -124,7 +124,7 @@
 					<%}else{ %> value="등록" <%} %> OnClick="javascript:checkBlank();"
 				>
 				<input type=button value="취소"
-					<% if(boardIdx != 0){ %> OnClick="window.location='ShowWriting.jsp?boardIdx=<%=boardIdx%>'"
+					<% if(boardIdx != 0){ %> OnClick="window.location='selectedPost.jsp?boardIdx=<%=boardIdx%>'"
 					<%}else{ %> OnClick="window.location='boardList.jsp?pg=1'" <%} %>>
 			<td>&nbsp;</td>
 		</tr>

@@ -41,7 +41,7 @@
 			dao.modifyPost(vo, boardIdx);
 	%>
 		alert("글이 수정되었습니다");
-		location.href="ShowWriting.jsp?boardIdx=<%=boardIdx%>";
+		location.href="selectedPost.jsp?boardIdx=<%=boardIdx%>";
 	<%
 		}else if(type.equals("pwd")){	/* 비밀번호 확인*/			
 			String pwd = null;
