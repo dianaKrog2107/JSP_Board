@@ -4,7 +4,10 @@
 <jsp:useBean id="dao" class="com.vp.board.BoardDAO" />
 <%
 	/* boardIdx의 게시글 불러오기 */
-	int boardIdx = Integer.parseInt(request.getParameter("boardIdx"));
+	int boardIdx = 0;
+	if (request.getParameter("boardIdx") != null) {
+		boardIdx = Integer.parseInt(request.getParameter("boardIdx"));
+	}
 	dao.updateHit(boardIdx); // 해당 게시글 조회수 갱신
 	BoardVO vo = dao.loadSelectedPost(boardIdx); // 해당 게시글 값 불러오기	
 %>

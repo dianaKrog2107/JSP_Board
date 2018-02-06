@@ -34,7 +34,7 @@
 					var num = $.trim(args).charAt(164);
 					if(num == 0){
 						if(next === "modify"){
-							location.href="Write.jsp?boardIdx=" + <%=boardIdx%>;
+							location.href="write.jsp?boardIdx=" + <%=boardIdx%>;
 						}
 						if(next === "delete"){
 							alert("게시물을 삭제합니다");

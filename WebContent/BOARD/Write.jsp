@@ -1,17 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
 	pageEncoding="EUC-KR"%>
-
-<%@ page import="com.vp.board.*"%>
-<%@ page import="java.util.*"%>
-
+<%@ page import="com.vp.board.*" %>
 <jsp:useBean id="dao" class="com.vp.board.BoardDAO" />
 <%
-	int boardIdx = 0;
+	int boardIdx = 0; // = 0이면 글쓰기, != 0이면 수정하기
 	BoardVO vo = new BoardVO();
-	if(request.getParameter("boardIdx") != null){
+	if (request.getParameter("boardIdx") != null) {
 		boardIdx = Integer.parseInt(request.getParameter("boardIdx"));
 	}
-	if(boardIdx != 0){
+	if (boardIdx != 0) { // 수정하기인 경우 해당 boardIdx의 내용 받아오기
 		vo = dao.loadSelectedPost(boardIdx);
 	}
 %>
@@ -19,8 +16,9 @@
 <html>
 <head>
 <title>
-	<% if(boardIdx == 0){ %>글쓰기
-	<% }else{ %>수정하기<%} %>
+	<% if (boardIdx == 0) { %> 글쓰기
+	<% } else { %> 수정하기
+	<% } %>
 </title>
 <script type="text/javascript">
 	function checkBlank() {
@@ -39,7 +37,7 @@
 			alert("비밀번호를 적어주세요");
 			form.password.focus();
 			return;
-		}		
+		}
 		if (!form.memo.value) {
 			alert("내용을 적어주세요");
 			form.memo.focus();
@@ -50,85 +48,94 @@
 </script>
 </head>
 <body>
-<form name=writeform method=post
-	<% if(boardIdx != 0){ %>
-		action="Controller.jsp?type=modify&boardIdx=<%=boardIdx%>"
-	<%}else{ %>
-		action="Controller.jsp?type=write&boardIdx=<%=boardIdx%>"
-	<%} %>
->
-	<h4 style="padding-left:180px">
-		<!-- TODO : 반복되는거 수정 가능한지 아니면 ()? : 이거로 해결 가능한지 -->
-		<% if(boardIdx == 0){ %>글쓰기
-		<% }else{ %>수정하기<%} %>
-	</h4>
-	<table>
-		<tr>
-			<td>&nbsp;</td>
-			<td align="center">제목</td>
-			<td>
-				<input name="title" size="50" maxlength="100"
-				<%if(boardIdx != 0){%>
-				value="<%=vo.getTitle()%>"
-				<%} %>
-				>
-			</td>
-			<td>&nbsp;</td>
-		</tr>
-		<tr height="1" bgcolor="#dddddd">
-			<td colspan="4"></td>
-		</tr>
-		<tr>
-			<td>&nbsp;</td>
-			<td align="center">이름</td>
-			<td>
-				<input name="name" size="50" maxlength="50"
-				<%if(boardIdx != 0){%>
-				value="<%=vo.getUserName()%>"
-				<%} %>
-				>
-			</td>
-			<td>&nbsp;</td>
-		</tr>
-		<tr height="1" bgcolor="#dddddd">
-			<td colspan="4"></td>
-		</tr>
-		<tr>
-			<td>&nbsp;</td>
-			<td align="center">비밀번호</td>
-			<td><input type="password" name="password" size="50" maxlength="50"></td>
-			<td>&nbsp;</td>
-		</tr>
-		<tr height="1" bgcolor="#dddddd">
-			<td colspan="4"></td>
-		</tr>
-		<tr>
-			<td>&nbsp;</td>
-			<td align="center">내용</td>
-			<td>
-				<textarea name="memo" cols="50" rows="13"><%if(boardIdx != 0){%><%=vo.getMemo()%><%} %></textarea>
-			</td>
-			<td>&nbsp;</td>
-		</tr>
-		<tr height="1" bgcolor="#dddddd">
-			<td colspan="4"></td>
-		</tr>
-		<tr height="1" bgcolor="#82B5DF">
-			<td colspan="4"></td>
-		</tr>
-		<tr align="center">
-			<td>&nbsp;</td>
-			<td colspan="2">
-				<input type=button 
-					<% if(boardIdx != 0){ %> value="수정"
-					<%}else{ %> value="등록" <%} %> OnClick="javascript:checkBlank();"
-				>
-				<input type=button value="취소"
-					<% if(boardIdx != 0){ %> OnClick="window.location='selectedPost.jsp?boardIdx=<%=boardIdx%>'"
-					<%}else{ %> OnClick="window.location='boardList.jsp?pg=1'" <%} %>>
-			<td>&nbsp;</td>
-		</tr>
-	</table>
-</form>
+	<form name=writeform method=post
+		<% if (boardIdx != 0) { %>
+			action="Controller.jsp?type=modify&boardIdx=<%=boardIdx%>"
+		<%} else {%>
+			action="Controller.jsp?type=write&boardIdx=<%=boardIdx%>"
+		<% } %>>
+		<h4 style="padding-left: 180px">
+			<% if (boardIdx == 0) { %> 글쓰기
+			<% } else { %> 수정하기
+			<% } %>
+		</h4>
+		<table>
+			<tr>
+				<td>&nbsp;</td>
+				<td align="center">제목</td>
+				<td>
+					<input name="title" size="50" maxlength="100"
+						<%if (boardIdx != 0) { %>
+							value="<%= vo.getTitle() %>"
+						<% } %>>
+				</td>
+				<td>&nbsp;</td>
+			</tr>
+			<tr height="1" bgcolor="#dddddd">
+				<td colspan="4"></td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td align="center">이름</td>
+				<td>
+					<input name="name" size="50" maxlength="50"
+						<% if (boardIdx != 0) { %>
+							value="<%= vo.getUserName() %>"
+						<% } %>>
+				</td>
+				<td>&nbsp;</td>
+			</tr>
+			<tr height="1" bgcolor="#dddddd">
+				<td colspan="4"></td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td align="center">비밀번호</td>
+				<td>
+					<input type="password" name="password" size="50" maxlength="50">
+				</td>
+				<td>&nbsp;</td>
+			</tr>
+			<tr height="1" bgcolor="#dddddd">
+				<td colspan="4"></td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td align="center">내용</td>
+				<td>
+					<textarea name="memo" cols="50" rows="13">
+						<% if (boardIdx != 0) { %>
+							<%=vo.getMemo()%>
+						<% } %>
+					</textarea>
+				</td>
+				<td>&nbsp;</td>
+			</tr>
+			<tr height="1" bgcolor="#dddddd">
+				<td colspan="4"></td>
+			</tr>
+			<tr height="1" bgcolor="#82B5DF">
+				<td colspan="4"></td>
+			</tr>
+			<tr align="center">
+				<td>&nbsp;</td>
+				<td colspan="2">
+					<input type=button
+						<% if (boardIdx != 0) { %>
+								value="수정"
+						<% } else { %>
+								value="등록"
+						<% } %>
+						OnClick="javascript:checkBlank();">
+					<input type=button value="취소"
+						<% if (boardIdx != 0) { %>
+							OnClick="window.location='selectedPost.jsp?boardIdx=<%=boardIdx%>'"
+						<% } else { %>
+							OnClick="window.location='boardList.jsp?pg=1'"
+					<% } %>>
+				<td>&nbsp;</td>
+			</tr>
+		</table>
+	</form>
 </body>
 </html>

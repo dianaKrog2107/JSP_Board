@@ -64,7 +64,7 @@
 	<br>
 		<!-- 글쓰기 버튼 -->
 		<div align="right" style="padding-right:100px;">
-			<input type=button value="글쓰기" OnClick="window.location='Write.jsp'">
+			<input type=button value="글쓰기" OnClick="window.location='write.jsp'">
 		</div>
 	<br>
 	<!-- 게시판 설정 -->
